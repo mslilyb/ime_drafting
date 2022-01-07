@@ -1,7 +1,5 @@
 import argparse
-#import intronio
-#import calculate_imeter
-import imelib as i
+import imelib
 import sys
 
 userin = argparse.ArgumentParser(
@@ -15,14 +13,20 @@ userin.add_argument('--k', required=True, type=int,
 userin.add_argument('--xfold', required=False, type = int,
     metavar='<int>', default=1, help='number of partitions for xfold validation, default 4')
 userin.add_argument('--outputFile', required=False, type=str,
-    metavar='<file>', help='specifiy desired output file in .csv format')
+    metavar='<file>', help='specify name of desired output file in .csv format')
 
 userargs = userin.parse_args()
 
-(prox, distal) = i.cutoffsplit(userargs.inputFile, userargs.cutoff)
+(prox, distal) = imelib.cutoffsplit(userargs.inputFile, userargs.cutoff)
 
-proxcounts = i.kmercount(prox, userargs.k)
-distalcounts = i.kmercount(distal, userargs.k)
+proxcounts = imelib.kmercount(prox, userargs.k)
+distalcounts = imelib.kmercount(distal, userargs.k)
 
-proxfreqs= i.kmerfreqs(proxcounts)
-distalfreqs= i.kmerfreqs(distalcounts)
+proxfreqs= imelib.kmerfreqs(proxcounts)
+distalfreqs= imelib.kmerfreqs(distalcounts)
+
+trainedimeter = imelib.training(proxfreqs, distalfreqs, userargs.xfold)
+
+scored = imelib.scoring(prox, distal, trainedimeter, userargs.k)
+
+#printscores(scored)
