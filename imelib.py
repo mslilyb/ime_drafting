@@ -1,12 +1,15 @@
 import math
 import statistics
 import sys
+import itertools
 
 
-expressionsplit(Nothing):
-    return(Nothing)
+#expressionsplit():
+    #return(Nothing)
 
-cutoffsplit(filename, cutoff):
+def cutoffsplit(filename, cutoff):
+    prox = []
+    dist = []
     with open(filename) as fp:
         for line in fp.readlines():
             f = line.split()
@@ -15,3 +18,7 @@ cutoffsplit(filename, cutoff):
             seq = f[-1]
 
             if end <= cutoff:
+                prox.append(seq)
+            else:
+                dist.append(seq)
+    return(prox, dist)

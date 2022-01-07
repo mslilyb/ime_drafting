@@ -12,11 +12,14 @@ userin.add_argument('--cutoff', required=True, type=int,
     metavar='<int>', help = 'cutoff for determining if intron is proximal or distal')
 userin.add_argument('--k', required=True, type=int,
     metavar='<int>', help = 'size of kmer')
-userin.addargument('--xfold', required=False, type = int,
-    metavar='<int>', default=4, help='number of partitions for xfold validation, default 4')
-userin.addargument('--outputFile', required=False, type=str,
-    metavar='<file>', 'specifiy desired output file')
+userin.add_argument('--xfold', required=False, type = int,
+    metavar='<int>', default=1, help='number of partitions for xfold validation, default 4')
+userin.add_argument('--outputFile', required=False, type=str,
+    metavar='<file>', help='specifiy desired output file in .csv format')
 
 userargs = userin.parse_args()
 
 (prox, distal) = imelib.cutoffsplit(userargs.inputFile, userargs.cutoff)
+
+print(prox)
+print(distal)
