@@ -73,4 +73,4 @@ def kmercount(seqs, k): #determines the total count of kmers in the sequences
     return(count, total) #returns a tuple, a dictionary keyed with unique kmers and their counts, and the total number)
 
 def kmerfreqs(counts): #determines frequencies of kmers across an introns
-    print(counts)
+    #print(counts)
