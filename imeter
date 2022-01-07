@@ -1,7 +1,7 @@
 import argparse
 #import intronio
 #import calculate_imeter
-import imelib
+import imelib as i
 import sys
 
 userin = argparse.ArgumentParser(
@@ -19,7 +19,10 @@ userin.add_argument('--outputFile', required=False, type=str,
 
 userargs = userin.parse_args()
 
-(prox, distal) = imelib.cutoffsplit(userargs.inputFile, userargs.cutoff)
+(prox, distal) = i.cutoffsplit(userargs.inputFile, userargs.cutoff)
 
-print(prox)
-print(distal)
+proxcounts = i.kmercount(prox, userargs.k)
+distalcounts = i.kmercount(distal, userargs.k)
+
+proxfreqs= i.kmerfreqs(proxcounts)
+distalfreqs= i.kmerfreqs(distalcounts)
